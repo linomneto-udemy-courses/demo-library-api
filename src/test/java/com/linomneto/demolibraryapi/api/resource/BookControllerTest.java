@@ -2,12 +2,17 @@ package com.linomneto.demolibraryapi.api.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linomneto.demolibraryapi.api.resource.api.dto.BookDTO;
+import com.linomneto.demolibraryapi.api.resource.api.model.Book;
+import com.linomneto.demolibraryapi.api.resource.api.service.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -30,11 +35,17 @@ public class BookControllerTest {
     @Autowired
     MockMvc mvc;
 
+    @MockBean
+    BookService service;
+
     @Test
     @DisplayName("must create a book with success")
     public void createBookWithSuccessTest() throws Exception {
-        BookDTO book = BookDTO.builder().title("Foundation").author("Isaac Asimov").isbn("978-85-7657-066-0").build();
-        String json = new ObjectMapper().writeValueAsString(book);
+        BookDTO dto = BookDTO.builder().title("Foundation").author("Isaac Asimov").isbn("978-85-7657-066-0").build();
+        Book saved_book = Book.builder().id(101L).title("Foundation").author("Isaac Asimov").isbn("978-85-7657-066-0").build();
+
+        BDDMockito.given(service.save(Mockito.any(BookDTO.class))).willReturn(saved_book);
+        String json = new ObjectMapper().writeValueAsString(dto);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
             .post(BOOK_API)
@@ -44,10 +55,10 @@ public class BookControllerTest {
 
         mvc.perform(request)
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("id").isNotEmpty())
-            .andExpect(jsonPath("title").value(book.getTitle()))
-            .andExpect(jsonPath("author").value(book.getAuthor()))
-            .andExpect(jsonPath("isbn").value(book.getIsbn()))
+            .andExpect(jsonPath("id").value(saved_book.getId()))
+            .andExpect(jsonPath("title").value(dto.getTitle()))
+            .andExpect(jsonPath("author").value(dto.getAuthor()))
+            .andExpect(jsonPath("isbn").value(dto.getIsbn()))
         ;
     }
 

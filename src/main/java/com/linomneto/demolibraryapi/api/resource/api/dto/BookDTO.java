@@ -2,8 +2,7 @@ package com.linomneto.demolibraryapi.api.resource.api.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Builder
 public class BookDTO {
 
