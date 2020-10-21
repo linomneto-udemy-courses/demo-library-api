@@ -1,4 +1,4 @@
-package com.linomneto.demolibraryapi.api.resource.api.model;
+package com.linomneto.demolibraryapi.api.resource.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+public class BookDTO {
 
     private Long id;
     private String title;

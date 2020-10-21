@@ -1,8 +1,8 @@
-package com.linomneto.demolibraryapi.api.resource.api.resource;
+package com.linomneto.demolibraryapi.api.resource.resource;
 
-import com.linomneto.demolibraryapi.api.resource.api.dto.BookDTO;
-import com.linomneto.demolibraryapi.api.resource.api.model.Book;
-import com.linomneto.demolibraryapi.api.resource.api.service.BookService;
+import com.linomneto.demolibraryapi.api.resource.dto.BookDTO;
+import com.linomneto.demolibraryapi.api.resource.model.Book;
+import com.linomneto.demolibraryapi.api.resource.service.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

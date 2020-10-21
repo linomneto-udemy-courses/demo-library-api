@@ -1,9 +1,9 @@
-package com.linomneto.demolibraryapi.api.resource;
+package com.linomneto.demolibraryapi.api.resource.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linomneto.demolibraryapi.api.resource.api.dto.BookDTO;
-import com.linomneto.demolibraryapi.api.resource.api.model.Book;
-import com.linomneto.demolibraryapi.api.resource.api.service.BookService;
+import com.linomneto.demolibraryapi.api.resource.dto.BookDTO;
+import com.linomneto.demolibraryapi.api.resource.model.Book;
+import com.linomneto.demolibraryapi.api.resource.service.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
