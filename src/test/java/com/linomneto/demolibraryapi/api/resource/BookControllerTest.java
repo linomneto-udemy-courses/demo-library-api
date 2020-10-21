@@ -44,7 +44,7 @@ public class BookControllerTest {
         BookDTO dto = BookDTO.builder().title("Foundation").author("Isaac Asimov").isbn("978-85-7657-066-0").build();
         Book saved_book = Book.builder().id(101L).title("Foundation").author("Isaac Asimov").isbn("978-85-7657-066-0").build();
 
-        BDDMockito.given(service.save(Mockito.any(BookDTO.class))).willReturn(saved_book);
+        BDDMockito.given(service.save(Mockito.any(Book.class))).willReturn(saved_book);
         String json = new ObjectMapper().writeValueAsString(dto);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders

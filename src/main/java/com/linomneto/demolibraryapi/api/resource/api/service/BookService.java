@@ -4,5 +4,5 @@ import com.linomneto.demolibraryapi.api.resource.api.dto.BookDTO;
 import com.linomneto.demolibraryapi.api.resource.api.model.Book;
 
 public interface BookService {
-    public Book save(BookDTO book);
+    public Book save(Book book);
 }
