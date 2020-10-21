@@ -1,4 +1,4 @@
-package com.linomneto.demolibraryapi.api.resource.dto;
+package com.linomneto.demolibraryapi.dto;
 
 import lombok.*;
 
@@ -12,13 +12,13 @@ public class BookDTO {
 
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "field title must be not empty")
     private String title;
 
-    @NotEmpty
+    @NotEmpty(message = "field author must be not empty")
     private String author;
 
-    @NotEmpty
+    @NotEmpty(message = "field isbn must be not empty")
     private String isbn;
 
 }

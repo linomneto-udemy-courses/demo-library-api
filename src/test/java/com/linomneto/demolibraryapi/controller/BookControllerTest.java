@@ -1,12 +1,10 @@
-package com.linomneto.demolibraryapi.api.resource.controller;
+package com.linomneto.demolibraryapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linomneto.demolibraryapi.api.resource.dto.BookDTO;
-import com.linomneto.demolibraryapi.api.resource.model.Book;
-import com.linomneto.demolibraryapi.api.resource.repository.BookRepository;
-import com.linomneto.demolibraryapi.api.resource.service.BookService;
-import com.linomneto.demolibraryapi.api.resource.service.impl.BookServiceImpl;
-import org.hamcrest.Matchers;
+import com.linomneto.demolibraryapi.dto.BookDTO;
+import com.linomneto.demolibraryapi.model.Book;
+import com.linomneto.demolibraryapi.repository.BookRepository;
+import com.linomneto.demolibraryapi.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +24,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")

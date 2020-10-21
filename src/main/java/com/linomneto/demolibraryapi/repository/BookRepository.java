@@ -1,6 +1,6 @@
-package com.linomneto.demolibraryapi.api.resource.repository;
+package com.linomneto.demolibraryapi.repository;
 
-import com.linomneto.demolibraryapi.api.resource.model.Book;
+import com.linomneto.demolibraryapi.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRepository extends JpaRepository<Book, Long> {

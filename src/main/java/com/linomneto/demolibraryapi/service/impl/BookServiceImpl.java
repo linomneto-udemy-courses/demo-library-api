@@ -1,8 +1,8 @@
-package com.linomneto.demolibraryapi.api.resource.service.impl;
+package com.linomneto.demolibraryapi.service.impl;
 
-import com.linomneto.demolibraryapi.api.resource.model.Book;
-import com.linomneto.demolibraryapi.api.resource.repository.BookRepository;
-import com.linomneto.demolibraryapi.api.resource.service.BookService;
+import com.linomneto.demolibraryapi.model.Book;
+import com.linomneto.demolibraryapi.repository.BookRepository;
+import com.linomneto.demolibraryapi.service.BookService;
 import org.springframework.stereotype.Service;
 
 @Service

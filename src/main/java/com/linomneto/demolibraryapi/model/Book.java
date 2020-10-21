@@ -1,4 +1,4 @@
-package com.linomneto.demolibraryapi.api.resource.model;
+package com.linomneto.demolibraryapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

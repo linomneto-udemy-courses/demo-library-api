@@ -1,9 +1,8 @@
-package com.linomneto.demolibraryapi.api.resource.service;
+package com.linomneto.demolibraryapi.service;
 
-import com.linomneto.demolibraryapi.api.resource.dto.BookDTO;
-import com.linomneto.demolibraryapi.api.resource.model.Book;
-import com.linomneto.demolibraryapi.api.resource.repository.BookRepository;
-import com.linomneto.demolibraryapi.api.resource.service.impl.BookServiceImpl;
+import com.linomneto.demolibraryapi.model.Book;
+import com.linomneto.demolibraryapi.repository.BookRepository;
+import com.linomneto.demolibraryapi.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

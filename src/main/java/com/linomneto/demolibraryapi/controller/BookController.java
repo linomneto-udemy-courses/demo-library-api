@@ -1,10 +1,12 @@
-package com.linomneto.demolibraryapi.api.resource.resource;
+package com.linomneto.demolibraryapi.controller;
 
-import com.linomneto.demolibraryapi.api.resource.dto.BookDTO;
-import com.linomneto.demolibraryapi.api.resource.model.Book;
-import com.linomneto.demolibraryapi.api.resource.service.BookService;
+import com.linomneto.demolibraryapi.exception.APIErrors;
+import com.linomneto.demolibraryapi.dto.BookDTO;
+import com.linomneto.demolibraryapi.model.Book;
+import com.linomneto.demolibraryapi.service.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,6 +31,12 @@ public class BookController {
         BookDTO saved_dto = mapper.map(book, BookDTO.class);
 
         return saved_dto;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public APIErrors handleValidationExceptions(MethodArgumentNotValidException e) {
+        return new APIErrors(e.getBindingResult());
     }
 
 }
