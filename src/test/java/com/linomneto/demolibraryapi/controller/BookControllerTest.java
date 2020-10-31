@@ -96,12 +96,12 @@ public class BookControllerTest {
 
     @Test
     @DisplayName("must not create a book because the isbn field already exists")
-    public void tryCreateBookWithExistentIsbsAndFailTest()  throws Exception {
+    public void tryCreateBookWithExistentIsbnAndFailTest()  throws Exception {
         BookDTO dto = BookTestUtils.newFoundationBookDTO();
         String json = new ObjectMapper().writeValueAsString(dto);
 
-        String errorMessage = "Isbn already exists";
-        BDDMockito.given(service.save(Mockito.any(Book.class))).willThrow(new BusinessException(errorMessage));
+        BusinessException.Type businessErrorType = BusinessException.Type.IsbnAlreadyExists;
+        BDDMockito.given(service.save(Mockito.any(Book.class))).willThrow(new BusinessException(businessErrorType));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post(BOOK_API)
@@ -112,6 +112,6 @@ public class BookControllerTest {
         mvc.perform(request)
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("errors", hasSize(1)))
-                .andExpect(jsonPath("errors[0]").value(errorMessage));
+                .andExpect(jsonPath("errors[0]").value(businessErrorType.msg()));
     }
 }

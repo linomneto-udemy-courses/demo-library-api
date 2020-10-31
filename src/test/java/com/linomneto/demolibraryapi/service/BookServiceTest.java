@@ -1,9 +1,11 @@
 package com.linomneto.demolibraryapi.service;
 
+import com.linomneto.demolibraryapi.exception.BusinessException;
 import com.linomneto.demolibraryapi.model.Book;
 import com.linomneto.demolibraryapi.repository.BookRepository;
 import com.linomneto.demolibraryapi.service.impl.BookServiceImpl;
 import com.linomneto.demolibraryapi.utils.BookTestUtils;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,6 +51,23 @@ public class BookServiceTest {
         assertThat(savedBook.getTitle()).isEqualTo(expectedSavedBook.getTitle());
         assertThat(savedBook.getAuthor()).isEqualTo(expectedSavedBook.getAuthor());
         assertThat(savedBook.getIsbn()).isEqualTo(expectedSavedBook.getIsbn());
+    }
+
+    @Test
+    @DisplayName("must not create a book because the isbn field already exists")
+    public void tryCreateBookWithExistentIsbnAndFailTest() {
+        //scenario
+        Book book = BookTestUtils.newFoundationBook();
+        Mockito.when(repository.existsByIsbn(book.getIsbn())).thenReturn(true);
+
+        //execution
+        Throwable exception = Assertions.catchThrowable(() -> service.save(book));
+
+        //verifications
+        String errorMessage = BusinessException.Type.IsbnAlreadyExists.msg();
+
+        assertThat(exception).isInstanceOf(BusinessException.class).hasMessage(errorMessage);
+        Mockito.verify(repository, Mockito.never()).save(book);
     }
 
 }
