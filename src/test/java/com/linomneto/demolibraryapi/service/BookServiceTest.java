@@ -3,6 +3,7 @@ package com.linomneto.demolibraryapi.service;
 import com.linomneto.demolibraryapi.model.Book;
 import com.linomneto.demolibraryapi.repository.BookRepository;
 import com.linomneto.demolibraryapi.service.impl.BookServiceImpl;
+import com.linomneto.demolibraryapi.utils.BookTestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ public class BookServiceTest {
     @DisplayName("must save a book with success")
     public void saveBookTest() {
         //scenario
-        Book book = Book.builder().title("Foundation").author("Isaac Asimov").isbn("978-85-7657-066-0").build();
+        Book book = BookTestUtils.newFoundationBook();
         Book expectedSavedBook = modelMapper.map(book, Book.class);
         expectedSavedBook.setId(101L);
         Mockito.when(repository.save(book)).thenReturn(expectedSavedBook);

@@ -1,10 +1,12 @@
 package com.linomneto.demolibraryapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linomneto.demolibraryapi.exception.BusinessException;
 import com.linomneto.demolibraryapi.dto.BookDTO;
 import com.linomneto.demolibraryapi.model.Book;
 import com.linomneto.demolibraryapi.repository.BookRepository;
 import com.linomneto.demolibraryapi.service.BookService;
+import com.linomneto.demolibraryapi.utils.BookTestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,7 +56,7 @@ public class BookControllerTest {
     @Test
     @DisplayName("must create a book with success")
     public void createBookWithSuccessTest() throws Exception {
-        BookDTO dto = BookDTO.builder().title("Foundation").author("Isaac Asimov").isbn("978-85-7657-066-0").build();
+        BookDTO dto = BookTestUtils.newFoundationBookDTO();
         Book expectedSavedBook = modelMapper.map(dto, Book.class);
         expectedSavedBook.setId(101L);
 
@@ -92,4 +94,24 @@ public class BookControllerTest {
             .andExpect(jsonPath("errors", hasSize(3)));
     }
 
+    @Test
+    @DisplayName("must not create a book because the isbn field already exists")
+    public void tryCreateBookWithExistentIsbsAndFailTest()  throws Exception {
+        BookDTO dto = BookTestUtils.newFoundationBookDTO();
+        String json = new ObjectMapper().writeValueAsString(dto);
+
+        String errorMessage = "Isbn already exists";
+        BDDMockito.given(service.save(Mockito.any(Book.class))).willThrow(new BusinessException(errorMessage));
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(BOOK_API)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("errors", hasSize(1)))
+                .andExpect(jsonPath("errors[0]").value(errorMessage));
+    }
 }

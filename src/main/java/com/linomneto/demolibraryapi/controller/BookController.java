@@ -2,6 +2,7 @@ package com.linomneto.demolibraryapi.controller;
 
 import com.linomneto.demolibraryapi.exception.APIErrors;
 import com.linomneto.demolibraryapi.dto.BookDTO;
+import com.linomneto.demolibraryapi.exception.BusinessException;
 import com.linomneto.demolibraryapi.model.Book;
 import com.linomneto.demolibraryapi.service.BookService;
 import org.modelmapper.ModelMapper;
@@ -37,6 +38,12 @@ public class BookController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public APIErrors handleValidationExceptions(MethodArgumentNotValidException e) {
         return new APIErrors(e.getBindingResult());
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public APIErrors handleBusinessExceptions(BusinessException e) {
+        return new APIErrors(e);
     }
 
 }
